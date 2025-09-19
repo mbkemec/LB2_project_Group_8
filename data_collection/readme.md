@@ -28,3 +28,6 @@ After getting the preliminary data, the following filtering steps were applied:
 | Number of Data    | 2949 | 20010   |
 | Number of Filtered Data    | 2932   | 20010
 
+|  | True | False |
+|----------|----------|----------|
+| Transmembrane Helix   | 2476 | 17534   |
