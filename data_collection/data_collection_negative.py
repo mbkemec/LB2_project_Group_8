@@ -3,7 +3,7 @@ from requests.adapters import HTTPAdapter, Retry
 import json
 import re
 
-retries = Retry(total=5, backoff_factor=1, status_forcelist=[500,502,503,504])
+retries = Retry(total=5, backoff_factor=2, status_forcelist=[500,502,503,504])
 session = requests.Session()
 session.mount("https://", HTTPAdapter(max_retries=retries))
 
@@ -25,11 +25,12 @@ def get_batch(batch_url):
         batch_url = get_next_link(response.headers)
 
 def filter_entry(entry):
-
+    return True
+"""
     for feature in entry.get("features", []):
         if feature["type"] == "SIGNAL":
             return False
-    return True
+"""
 
 
 def extract_fields(entry):
@@ -50,11 +51,12 @@ def extract_fields(entry):
 
     tm_first90 = False
     for f in entry.get("features", []):
-        if f["type"] in ["Transmembrane", "Transmembrane helix"]:
-            start = f["location"]["start"].get("value")
-            if start is not None and start <= 90:
-                tm_first90 = True
-                break
+        if f["type"] in ["Transmembrane"]:
+            if f["description"] == "Helical":
+                start = f["location"]["start"].get("value")
+                if start is not None and start <= 90:
+                    tm_first90 = True
+                    break
 
     return (accession, organism, kingdom, length, tm_first90)
 
@@ -82,9 +84,7 @@ def get_dataset(search_url, filter_function, extract_function, output_file_name)
             ofs.write(f">{acc}\n{seq}\n")
 
 
-url = (
-    "https://rest.uniprot.org/uniprotkb/search?format=json&query=%28%28fragment%3Afalse%29+AND+%28taxonomy_id%3A2759%29+AND+%28length%3A%5B40+TO+*%5D%29+NOT+%28ft_signal%3A*%29+AND+%28%22%28cc_scl_term_exp%3ASL-0091%29+%22+OR+%28cc_scl_term_exp%3ASL-0191%29+OR+%28cc_scl_term_exp%3ASL-0173%29+OR+%28cc_scl_term_exp%3ASL-0209%29+OR+%28cc_scl_term_exp%3ASL-0204%29+OR+%28cc_scl_term_exp%3ASL-0039%29%29+AND+%28reviewed%3Atrue%29+AND+%28existence%3A1%29%29&size=500"
-)
+url = "https://rest.uniprot.org/uniprotkb/search?format=json&query=%28%28fragment%3Afalse%29+AND+%28taxonomy_id%3A2759%29+AND+%28length%3A%5B40+TO+*%5D%29+NOT+%28ft_signal%3A*%29+AND+%28%28cc_scl_term_exp%3ASL-0091%29+OR+%28cc_scl_term_exp%3ASL-0191%29+OR+%28cc_scl_term_exp%3ASL-0173%29+OR+%28cc_scl_term_exp%3ASL-0209%29+OR+%28cc_scl_term_exp%3ASL-0204%29+OR+%28cc_scl_term_exp%3ASL-0039%29%29AND+%28reviewed%3Atrue%29+AND+%28existence%3A1%29%29&size=200"
 
 output_file = "negative.tsv"
 fasta_file = "negative.fasta"
