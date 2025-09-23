@@ -1,0 +1,11 @@
+# Python cache
+__pycache__/
+*.pyc
+
+# Temporary folders (MMseqs2 tmp outputs)
+tmp/
+tmp_*/
+
+# OS junk files
+.DS_Store
+Thumbs.db
