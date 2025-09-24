@@ -78,8 +78,8 @@ Inputs:
 
 compared with
 
--[`pos-cluster-results_rep_seq.fasta`](pos-cluster-results_rep_seq.fasta) – Representative clustered positive sequences
--[`neg-cluster-results_rep_seq.fasta`](neg-cluster-results_rep_seq.fasta) – Representative clustered negative sequences
+-[`pos-cluster-results_rep_seq.fasta`](pos-cluster-results_rep_seq.fasta) 
+-[`neg-cluster-results_rep_seq.fasta`](neg-cluster-results_rep_seq.fasta) 
 
 Outputs:
 
