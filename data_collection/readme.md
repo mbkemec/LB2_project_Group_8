@@ -9,6 +9,12 @@ Protein sequences were retrieved from the *UniProt* database. Based on selected 
 - *Negative dataset query: (fragment:false) AND (taxonomy_id:2759) AND (length:[40 TO ]) NOT (ft_signal:) AND ((cc_scl_term_exp:SL-0091) OR (cc_scl_term_exp:SL-0191) OR (cc_scl_term_exp:SL-0173) OR (cc_scl_term_exp:SL-0209) OR (cc_scl_term_exp:SL-0204) OR (cc_scl_term_exp:SL-0039))AND (reviewed:true) AND (existence:1)*
   
   All queries were executed on [UniProt](https://www.uniprot.org) on *17.09.2025*
+  
+- [positive.tsv](positive.tsv) – TSV file of positive sequences.
+- [positive.fasta](positive.fasta) – fasta file of positive sequences.
+  
+- [negative.tsv](negative.tsv) – TSV file of negative sequences.
+- [negative.fasta](negative.fasta) – fasta file of negative sequences.
 
 ---
 #### Preprocessing Dataset
@@ -16,9 +22,6 @@ After getting the preliminary data, the following filtering steps were applied:
 
 - Proteins signal peptide shorter than 14 residues are removed.  
 - Peptides with the description are filtered.
-  
-- [positive.py](positive.py) – collects and processes positive sequences.
-- [negative.py](negative.py) – collects and processes negative sequences.
 ---
 
 ## Results Summary
