@@ -28,8 +28,8 @@ The resulting output files are:
   
 - [`negative.tsv`](negative.tsv) – Filtered negative sequences (TSV format)  
 - [`negative.fasta`](negative.fasta) – Filtered negative sequences (FASTA format)
-  
-## Results Summary
+---
+### Results Summary
 
 |  | Positive | Negative |
 |----------|----------|----------|
@@ -39,8 +39,8 @@ The resulting output files are:
 | Negative Data | True | False |
 |----------|----------|----------|
 | Transmembrane Helix   | 1384 | 19231   |
-
 ---
+
 ## Dataset Pre-processing
 
 The datasets are pre-processed for cross-validation and benchmarking.
@@ -57,12 +57,17 @@ The resulting output files are:
 - [`neg-cluster-results_cluster.tsv`](neg-cluster-results_cluster.tsv) – Clustered negative sequences (TSV format)  
 - [`neg-cluster-results_all_seqs.fasta`](neg-cluster-results_all_seqs.fasta) – Clustered negative sequences (FASTA format)
 
-
-3. **Selecting Representative Sequences**  
-   Representative sequences are selected from each cluster to:  
+2. **Selecting Representative Sequences**  
+   Representative sequences were selected from each cluster to:  
    - **Prevent data leakage** – protein families often share similar traits, so related sequences could otherwise be over-represented.  
    - **Reduce overfitting** – uneven family sizes can cause large, highly populated families to dominate the dataset.
 
+The resulting output files are:
+
+- [`pos-cluster-results_rep_seq.fasta`](pos-cluster-results_rep_seq.fasta) – Representative clustered positive sequences (FASTA format)  
+- [`neg-cluster-results_rep_seq.fasta`](neg-cluster-results_rep_seq.fasta) – Representative clustered negative sequences (FASTA format)
+
+  
 4. **Creating a New TSV File**  
    A new TSV file containing only the representative sequences is generated.
 
