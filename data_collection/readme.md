@@ -58,7 +58,7 @@ The resulting output files are:
 - [`neg-cluster-results_all_seqs.fasta`](neg-cluster-results_all_seqs.fasta) – Clustered negative sequences (FASTA format)
 
 2. **Selecting Representative Sequences**  
-   Representative sequences were selected from each cluster to:  
+   **MMseqs2** also generated a FASTA file of representative sequences, selecting one sequence from each cluster to:  
    - **Prevent data leakage** – protein families often share similar traits, so related sequences could otherwise be over-represented.  
    - **Reduce overfitting** – uneven family sizes can cause large, highly populated families to dominate the dataset.
 
@@ -69,13 +69,26 @@ The resulting output files are:
 
   
 4. **Creating a New TSV File**  
-   A new TSV file containing only the representative sequences is generated.
+   A new TSV file containing only the representative sequences is generated. After MMseq2 clustering, the representative sequences FASTA files were only containing UniProt IDs. TSV files with full sequence information for these representatives are generated using the Python script [`filter_reps.py`](filter_reps.py)
 
-5. **Splitting Data into Training and Benchmark Sets**  
+Inputs:
+-[`positive.fasta`](positive.fasta) – Filtered positive sequences 
+-[`negative.fasta`](negative.fasta) – Filtered negative sequences
+compared with
+-[`pos-cluster-results_rep_seq.fasta`](pos-cluster-results_rep_seq.fasta) – Representative clustered positive sequences
+-[`neg-cluster-results_rep_seq.fasta`](neg-cluster-results_rep_seq.fasta) – Representative clustered negative sequences
+
+Outputs:
+New files containing only representative sequences and their information obtained from UniProt is created.
+-[`positive_NR.tsv`](positive_NR.tsv)
+-[`negative_NR.tsv`](negative_NR.tsv)
+
+
+6. **Splitting Data into Training and Benchmark Sets**  
    Data is randomly divided into:  
    - **Training set (80 %)** – for model fitting and hyperparameter tuning.  
    - **Benchmarking set (20 %)** – for final, unbiased evaluation.
 
-6. **Building Cross-Validation Subsets**  
+7. **Building Cross-Validation Subsets**  
    The training set is randomly split into **five** subsets while preserving the overall positive/negative ratio for each fold.
 ---
