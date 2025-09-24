@@ -99,8 +99,6 @@ New files containing only representative sequences and their information obtaine
 ---
 ### Results Summary
 
-### Results Summary
-
 | Dataset                     | Total Samples | Negative | Positive |
 |-----------------------------|---------------|---------|----------|
 | Merged (Train)              | 8,021         | 7,141   | 874      |
