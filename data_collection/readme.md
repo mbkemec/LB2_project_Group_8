@@ -97,3 +97,14 @@ New files containing only representative sequences and their information obtaine
 7. **Building Cross-Validation Subsets**  
    The training set is randomly split into **five** subsets while preserving the overall positive/negative ratio for each fold.
 ---
+### Results Summary
+
+| Dataet | Total Samples | Negative | Positive |
+|----------|----------|----------|
+| Merged (Train)| 8021 | 7141 | 874 |
+| Merged (Benchmark) | 2006   | 1787 | 219 |
+| Negative (Before Clustering) | 20615 | 20615 | 0 |
+| Positive (Before Clustering) | 2932 | 0 | 2932 |
+| Negative (After Clustering) | 8934 | 8934 | 0 |
+| Positive (After Clustering) | 1093 | 0 | 1093|
+---
