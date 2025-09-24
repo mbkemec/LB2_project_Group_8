@@ -75,7 +75,9 @@ Inputs:
 
 -[`positive.fasta`](positive.fasta) – Filtered positive sequences 
 -[`negative.fasta`](negative.fasta) – Filtered negative sequences
+
 compared with
+
 -[`pos-cluster-results_rep_seq.fasta`](pos-cluster-results_rep_seq.fasta) – Representative clustered positive sequences
 -[`neg-cluster-results_rep_seq.fasta`](neg-cluster-results_rep_seq.fasta) – Representative clustered negative sequences
 
