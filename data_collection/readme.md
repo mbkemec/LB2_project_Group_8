@@ -17,7 +17,8 @@ After getting the preliminary data, the following filtering steps were applied:
 - Proteins signal peptide shorter than 14 residues are removed.  
 - Peptides with the description are filtered.
   
-
+- [positive.py](positive.py) – collects and processes positive sequences.
+- [negative.py](negative.py) – collects and processes negative sequences.
 ---
 
 ## Results Summary
@@ -31,3 +32,29 @@ After getting the preliminary data, the following filtering steps were applied:
 | Negative Data | True | False |
 |----------|----------|----------|
 | Transmembrane Helix   | 1384 | 19231   |
+
+
+## Dataset Pre-processing
+
+The datasets are pre-processed for cross-validation and benchmarking.
+
+### Redundancy Reduction
+
+1. **Clustering**  
+   Positive and negative sequences are clustered with **MMseqs2** using thresholds of **≥ 30 % sequence identity** and **≥ 40 % alignment coverage** to ensure independence between training and test sets.
+
+2. **Selecting Representative Sequences**  
+   Representative sequences are selected from each cluster to:  
+   - **Prevent data leakage** – protein families often share similar traits, so related sequences could otherwise be over-represented.  
+   - **Reduce overfitting** – uneven family sizes can cause large, highly populated families to dominate the dataset.
+
+3. **Creating a New TSV File**  
+   A new TSV file containing only the representative sequences is generated.
+
+4. **Splitting Data into Training and Benchmark Sets**  
+   Data is randomly divided into:  
+   - **Training set (80 %)** – for model fitting and hyperparameter tuning.  
+   - **Benchmarking set (20 %)** – for final, unbiased evaluation.
+
+5. **Building Cross-Validation Subsets**  
+   The training set is randomly split into **five** subsets while preserving the overall positive/negative ratio for each fold.
