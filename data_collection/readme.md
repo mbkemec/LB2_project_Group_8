@@ -72,6 +72,7 @@ The resulting output files are:
    A new TSV file containing only the representative sequences is generated. After MMseq2 clustering, the representative sequences FASTA files were only containing UniProt IDs. TSV files with full sequence information for these representatives are generated using the Python script [`filter_reps.py`](filter_reps.py)
 
 Inputs:
+
 -[`positive.fasta`](positive.fasta) – Filtered positive sequences 
 -[`negative.fasta`](negative.fasta) – Filtered negative sequences
 compared with
@@ -79,7 +80,9 @@ compared with
 -[`neg-cluster-results_rep_seq.fasta`](neg-cluster-results_rep_seq.fasta) – Representative clustered negative sequences
 
 Outputs:
+
 New files containing only representative sequences and their information obtained from UniProt is created.
+
 -[`positive_NR.tsv`](positive_NR.tsv)
 -[`negative_NR.tsv`](negative_NR.tsv)
 
