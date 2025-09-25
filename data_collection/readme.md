@@ -66,46 +66,64 @@ The resulting output files are:
 
 - [`pos-cluster-results_rep_seq.fasta`](pos-cluster-results_rep_seq.fasta) – Representative clustered positive sequences (FASTA format)  
 - [`neg-cluster-results_rep_seq.fasta`](neg-cluster-results_rep_seq.fasta) – Representative clustered negative sequences (FASTA format)
-
   
 4. **Creating a New TSV File**  
-   A new TSV file containing only the representative sequences is generated. After MMseq2 clustering, the representative sequences FASTA files were only containing UniProt IDs. TSV files with full sequence information for these representatives are generated using the Python script [`filter_reps.py`](filter_reps.py)
+   A new TSV file containing only the representative sequences is generated.  
+   After MMseqs2 clustering, the representative FASTA files contain only UniProt IDs.  
+   TSV files with full sequence information for these representatives are produced using  
+   [`filter_reps.py`](filter_reps.py) – **extracts representative sequences and creates TSVs**.
 
-Inputs:
+   **Inputs**
+   - [`positive.fasta`](positive.fasta) – Filtered positive sequences  
+   - [`negative.fasta`](negative.fasta) – Filtered negative sequences  
 
--[`positive.fasta`](positive.fasta) – Filtered positive sequences 
--[`negative.fasta`](negative.fasta) – Filtered negative sequences
+   **Compared with**
+   - [`pos-cluster-results_rep_seq.fasta`](pos-cluster-results_rep_seq.fasta)  
+   - [`neg-cluster-results_rep_seq.fasta`](neg-cluster-results_rep_seq.fasta)  
 
-compared with
+   **Outputs**
+   - [`positive_NR.tsv`](positive_NR.tsv)  
+   - [`negative_NR.tsv`](negative_NR.tsv)  
 
--[`pos-cluster-results_rep_seq.fasta`](pos-cluster-results_rep_seq.fasta) 
--[`neg-cluster-results_rep_seq.fasta`](neg-cluster-results_rep_seq.fasta) 
-
-Outputs:
-
-New files containing only representative sequences and their information obtained from UniProt is created.
-
--[`positive_NR.tsv`](positive_NR.tsv)
--[`negative_NR.tsv`](negative_NR.tsv)
-
+---
 
 6. **Splitting Data into Training and Benchmark Sets**  
-   Data is randomly divided into:  
-   - **Training set (80 %)** – for model fitting and hyperparameter tuning.  
-   - **Benchmarking set (20 %)** – for final, unbiased evaluation.
+   Data is randomly shuffled and divided into two sets using  
+   [`shuffle_NR.py`](shuffle_NR.py) – **shuffles and splits data into training/benchmark sets**:  
+   - **Training set (80 %)** – for model fitting and hyperparameter tuning  
+   - **Benchmarking set (20 %)** – for final, unbiased evaluation  
+
+   **Resulting files**
+   - [`train-pos.tsv`](train-pos.tsv)  
+   - [`train-neg.tsv`](train-neg.tsv)  
+   - [`benchmark-pos.tsv`](benchmark-pos.tsv)  
+   - [`benchmark-neg.tsv`](benchmark-neg.tsv)  
+
+---
 
 7. **Building Cross-Validation Subsets**  
-   The training set is randomly split into **five** subsets while preserving the overall positive/negative ratio for each fold.
----
-### Results Summary
+   The training set is randomly split into **five** subsets while preserving the positive/negative ratio,  
+   using [`split_cross_validation.py`](split_cross_validation.py) – **generates 5-fold cross-validation subsets**.
 
-| Dataset                     | Total Samples | Negative | Positive |
-|-----------------------------|---------------|---------|----------|
-| Merged (Train)              | 8021         | 7141   | 874      |
-| Merged (Benchmark)          | 2006         | 1787   | 219      |
-| Negative (Before Clustering)| 20615        | 20615  | 0        |
-| Positive (Before Clustering)| 2932         | 0       | 2932    |
-| Negative (After Clustering) | 8934         | 8934   | 0        |
-| Positive (After Clustering) | 1093         | 0       | 1093    |
+   **Resulting files**
+   - Positive: [`pos-cv1.tsv`](pos-cv1.tsv), [`pos-cv2.tsv`](pos-cv2.tsv), [`pos-cv3.tsv`](pos-cv3.tsv),  
+     [`pos-cv4.tsv`](pos-cv4.tsv), [`pos-cv5.tsv`](pos-cv5.tsv)  
+   - Negative: [`neg-cv1.tsv`](neg-cv1.tsv), [`neg-cv2.tsv`](neg-cv2.tsv), [`neg-cv3.tsv`](neg-cv3.tsv),  
+     [`neg-cv4.tsv`](neg-cv4.tsv), [`neg-cv5.tsv`](neg-cv5.tsv)  
+
+---
+
+### Results Summary  
+The final dataset sizes after clustering and splitting are summarized below:
+
+| Dataset                      | Total Samples | Negative | Positive |
+|------------------------------|--------------:|--------:|--------:|
+| Merged (Train)               |  8021 |  7141 |  874 |
+| Merged (Benchmark)           |  2006 |  1787 |  219 |
+| Negative (Before Clustering) | 20615 | 20615 |    0 |
+| Positive (Before Clustering) |  2932 |     0 | 2932 |
+| Negative (After Clustering)  |  8934 |  8934 |    0 |
+| Positive (After Clustering)  |  1093 |     0 | 1093 |
+
 
 ---
