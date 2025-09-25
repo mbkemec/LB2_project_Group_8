@@ -88,7 +88,7 @@ The resulting output files are:
 
    b. **Split Representative FASTA Files**  
       Using [`fasta_sep.py`](fasta_sep.py) – **creates one FASTA file per representative sequence**.  
-      All individual FASTA files are saved inside the [`fasta`](data_collection/fasta) folder,  
+      All individual FASTA files are saved inside the [`fasta`](LB2_project_Group_8/data_collection /fasta/) folder,  
       which is located inside the [`data_collection`](data_collection) directory.
 
 
