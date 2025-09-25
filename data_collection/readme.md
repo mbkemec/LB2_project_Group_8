@@ -11,7 +11,6 @@ Protein sequences were retrieved from the *UniProt* database. Based on selected 
   All queries were executed on [UniProt](https://www.uniprot.org) on *17.09.2025*
   
 ---
-#### Preprocessing Dataset
 
 After collecting the preliminary data, the following filtering steps were applied:
 
@@ -67,27 +66,35 @@ The resulting output files are:
 - [`pos-cluster-results_rep_seq.fasta`](pos-cluster-results_rep_seq.fasta) – Representative clustered positive sequences (FASTA format)  
 - [`neg-cluster-results_rep_seq.fasta`](neg-cluster-results_rep_seq.fasta) – Representative clustered negative sequences (FASTA format)
   
-4. **Creating a New TSV File**  
-   A new TSV file containing only the representative sequences is generated.  
+3. **Creating Representative TSV and FASTA Files**  
    After MMseqs2 clustering, the representative FASTA files contain only UniProt IDs.  
-   TSV files with full sequence information for these representatives are produced using  
-   [`filter_reps.py`](filter_reps.py) – **extracts representative sequences and creates TSVs**.
+   Two processing steps are performed to generate complete, usable datasets:
 
-   **Inputs**
-   - [`positive.fasta`](positive.fasta) – Filtered positive sequences  
-   - [`negative.fasta`](negative.fasta) – Filtered negative sequences  
+    a. **Generate Annotated TSVs**  
+      Using [`filter_reps.py`](filter_reps.py) – **extracts representative sequences and produces TSV tables** with **Organism**, **Kingdom**, **Length**, and **Transmembrane Helix** information.
 
-   **Compared with**
-   - [`pos-cluster-results_rep_seq.fasta`](pos-cluster-results_rep_seq.fasta)  
-   - [`neg-cluster-results_rep_seq.fasta`](neg-cluster-results_rep_seq.fasta)  
+      **Inputs**
+      - [`positive.fasta`](positive.fasta) – Filtered positive sequences  
+      - [`negative.fasta`](negative.fasta) – Filtered negative sequences  
 
-   **Outputs**
-   - [`positive_NR.tsv`](positive_NR.tsv)  
-   - [`negative_NR.tsv`](negative_NR.tsv)  
+      **Compared With**  
+      Representative FASTA files produced by MMseqs2 (one sequence per cluster):
+      - [`pos-cluster-results_rep_seq.fasta`](pos-cluster-results_rep_seq.fasta) – Positive cluster representatives  
+      - [`neg-cluster-results_rep_seq.fasta`](neg-cluster-results_rep_seq.fasta) – Negative cluster representatives  
+
+      **Outputs**
+      - [`positive_NR.tsv`](positive_NR.tsv) – Non-redundant positive dataset with full UniProt annotations  
+      - [`negative_NR.tsv`](negative_NR.tsv) – Non-redundant negative dataset with full UniProt annotations  
+
+   b. **Split Representative FASTA Files**  
+      Using [`fasta_sep.py`](fasta_sep.py) – **creates one FASTA file per representative sequence**.  
+      All individual FASTA files are saved inside the [`fasta`](data_collection/fasta) folder,  
+      which is located inside the [`data_collection`](data_collection) directory.
+
 
 ---
 
-6. **Splitting Data into Training and Benchmark Sets**  
+4. **Splitting Data into Training and Benchmark Sets**  
    Data is randomly shuffled and divided into two sets using  
    [`shuffle_NR.py`](shuffle_NR.py) – **shuffles and splits data into training/benchmark sets**:  
    - **Training set (80 %)** – for model fitting and hyperparameter tuning  
@@ -105,12 +112,21 @@ The resulting output files are:
    The training set is randomly split into **five** subsets while preserving the positive/negative ratio,  
    using [`split_cross_validation.py`](split_cross_validation.py) – **generates 5-fold cross-validation subsets**.
 
-   **Resulting files**
-   - Positive: [`pos-cv1.tsv`](pos-cv1.tsv), [`pos-cv2.tsv`](pos-cv2.tsv), [`pos-cv3.tsv`](pos-cv3.tsv),  
-     [`pos-cv4.tsv`](pos-cv4.tsv), [`pos-cv5.tsv`](pos-cv5.tsv)  
-   - Negative: [`neg-cv1.tsv`](neg-cv1.tsv), [`neg-cv2.tsv`](neg-cv2.tsv), [`neg-cv3.tsv`](neg-cv3.tsv),  
-     [`neg-cv4.tsv`](neg-cv4.tsv), [`neg-cv5.tsv`](neg-cv5.tsv)  
+**Resulting Files**
 
+- **Positive Cross-Validation Sets**
+  - [`pos-cv1.tsv`](pos-cv1.tsv) 
+  - [`pos-cv2.tsv`](pos-cv2.tsv)
+  - [`pos-cv3.tsv`](pos-cv3.tsv) 
+  - [`pos-cv4.tsv`](pos-cv4.tsv)  
+  - [`pos-cv5.tsv`](pos-cv5.tsv)  
+
+- **Negative Cross-Validation Sets**
+  - [`neg-cv1.tsv`](neg-cv1.tsv) 
+  - [`neg-cv2.tsv`](neg-cv2.tsv)  
+  - [`neg-cv3.tsv`](neg-cv3.tsv) 
+  - [`neg-cv4.tsv`](neg-cv4.tsv) 
+  - [`neg-cv5.tsv`](neg-cv5.tsv) 
 ---
 
 ### Results Summary  
