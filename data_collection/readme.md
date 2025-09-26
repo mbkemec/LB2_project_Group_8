@@ -110,24 +110,28 @@ The resulting output files are:
 
 7. **Building Cross-Validation Subsets**  
    The training set is randomly split into **five** subsets while preserving the positive/negative ratio,  
-   using [`split_cross_validation.py`](split_cross_validation.py) – **generates 5-fold cross-validation subsets**.
+   using [`split_cross_validation.py`](split_cross_validation.py), which generates 5-fold cross-validation subsets.
 
 **Resulting Files**
 
 - **Positive Cross-Validation Sets**
-  - [`pos-cv1.tsv`](pos-cv1.tsv) 
+  - [`pos-cv1.tsv`](pos-cv1.tsv)
   - [`pos-cv2.tsv`](pos-cv2.tsv)
-  - [`pos-cv3.tsv`](pos-cv3.tsv) 
-  - [`pos-cv4.tsv`](pos-cv4.tsv)  
-  - [`pos-cv5.tsv`](pos-cv5.tsv)  
+  - [`pos-cv3.tsv`](pos-cv3.tsv)
+  - [`pos-cv4.tsv`](pos-cv4.tsv)
+  - [`pos-cv5.tsv`](pos-cv5.tsv)
 
 - **Negative Cross-Validation Sets**
-  - [`neg-cv1.tsv`](neg-cv1.tsv) 
-  - [`neg-cv2.tsv`](neg-cv2.tsv)  
-  - [`neg-cv3.tsv`](neg-cv3.tsv) 
-  - [`neg-cv4.tsv`](neg-cv4.tsv) 
-  - [`neg-cv5.tsv`](neg-cv5.tsv) 
+  - [`neg-cv1.tsv`](neg-cv1.tsv)
+  - [`neg-cv2.tsv`](neg-cv2.tsv)
+  - [`neg-cv3.tsv`](neg-cv3.tsv)
+  - [`neg-cv4.tsv`](neg-cv4.tsv)
+  - [`neg-cv5.tsv`](neg-cv5.tsv)
+
 ---
+
+Finally, all positive cross-validation sets, all negative cross-validation sets, and the benchmark positive and negative sets  
+are combined using the [`merge_data.py`](merge_data.py) script to create a single file: [`combined_dataset.tsv`](combined_dataset.tsv).
 
 ### Results Summary  
 The final dataset sizes after clustering and splitting are summarized below:
