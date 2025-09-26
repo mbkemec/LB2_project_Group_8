@@ -134,7 +134,7 @@ The final dataset sizes after clustering and splitting are summarized below:
 
 | Dataset                      | Total Samples | Negative | Positive |
 |------------------------------|--------------:|--------:|--------:|
-| Merged (Train)               |  8021 |  7141 |  874 |
+| Merged (Train)               |  8021 |  7147 |  874 |
 | Merged (Benchmark)           |  2006 |  1787 |  219 |
 | Negative (Before Clustering) | 20615 | 20615 |    0 |
 | Positive (Before Clustering) |  2932 |     0 | 2932 |
