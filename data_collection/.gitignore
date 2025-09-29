@@ -9,3 +9,5 @@ tmp_*/
 # OS junk files
 .DS_Store
 Thumbs.db
+
+*.Zone.Identifier
