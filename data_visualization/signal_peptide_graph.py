@@ -37,4 +37,5 @@ plt.ylabel("Probability")
 plt.text(45,0.1,f"Benchmark count: {len(bench_sp)}",color="green")
 
 plt.tight_layout()
+plt.savefig("signal_peptide_graph.png", dpi=300)
 plt.show()
