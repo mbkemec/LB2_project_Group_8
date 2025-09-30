@@ -5,8 +5,8 @@ INPUT_TSV = "combined_dataset_final.tsv"
 FASTA_FOLDER = "../data_collection/fasta"
 OUTPUT_TRAIN_TSV = "motifs_training.tsv"
 OUTPUT_BENCH_TSV = "motifs_benchmark.tsv"
-WINDOW_LEFT = 13
-WINDOW_RIGHT = 2
+WINDOW_LEFT = 12
+WINDOW_RIGHT = 3
 
 
 # Load dataset
