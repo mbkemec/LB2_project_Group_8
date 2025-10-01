@@ -50,7 +50,7 @@ We investigate the taxonomic distribution of sequences in the dataset, at both t
 We extract motifs around the **signal peptide cleavage site** using a window of `[-13, +2]`.
 Sequence logos are generated with **WebLogo**, revealing conserved sequence patterns at cleavage sites.
 
-![SP Cleavage Site Logo (Training)](training_s_cleavage.png)
+![SP Cleavage Site Logo (Training)](training_sp_cleavage.png)
 
-![SP Cleavage Site Logo (Benchmark)](benchmark_set_cleavage.png)
+![SP Cleavage Site Logo (Benchmark)](benchmark_sp_cleavage.png)
 ---
