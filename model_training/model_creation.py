@@ -212,7 +212,7 @@ def cross_validation(df, fasta_dir="../data_collection/fasta/"):
     axes[1].legend(loc="lower left")
     axes[1].grid(True, linestyle="--", alpha=0.6)
 
-    sns.heatmap(df_pswm_avg, cmap="YlGnBu", center=0,
+    sns.heatmap(df_pswm_avg, cmap="YlGnBu", center=0,annot=True,fmt=".2f",annot_kws={"size":6},
             cbar_kws={'label': 'Weight (log2 base)'}, ax=axes[2])
     axes[2].set_xlabel("Motif Position")
     axes[2].set_ylabel("Amino Acid")

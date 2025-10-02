@@ -9,4 +9,5 @@
 | F1 Score   | 0.7309 ± 0.0132 |
 
 
+### Combined Performance Metrics Visualization
 ![Model combined metrics](combined_model_metrics.png)
