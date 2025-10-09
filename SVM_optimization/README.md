@@ -18,7 +18,8 @@ For each amino acid, the following features were extracted:
 
 - **Secondary Structure Propensities:**  
   - **Alpha-helix (Chou & Fasman)**  
-  - **Coil (Deleage & Roux)**  
+  - **Coil (Deleage & Roux)**
+  - **Beta-sheet (Chou & Fasman)** 
 
 Each protein sequence was converted into a **feature dataframe**, and sliding windows 5 and 9 were applied to capture **local context** across residues.
 
@@ -29,6 +30,6 @@ Each protein sequence was converted into a **feature dataframe**, and sliding wi
 | **Polarity (Zimmerman)** | `polarity_Zimmerman_mean`, `polarity_Zimmerman_max` |
 | **Transmembrane Tendency (Zhao & London)** | `transmembrane_tendency_ZhaoLondon_mean`, `transmembrane_tendency_ZhaoLondon_max` |
 | **Flexibility (Bhaskaran & Ponnuswamy)** | `flexibility_BhaskaranPonnuswamy_mean`, `flexibility_BhaskaranPonnuswamy_max` |
-| **Secondary Structure Propensity** | `helix_ChouFasman_mean`, `helix_ChouFasman_max`, `coil_DeleageRoux_mean`, `coil_DeleageRoux_max` |
+| **Secondary Structure Propensity** | `helix_ChouFasman_mean`, `helix_ChouFasman_max`, `coil_DeleageRoux_mean`, `coil_DeleageRoux_max`, 'beta_ChouFasman_mean', 'beta_ChouFasman_max' |
 
 
