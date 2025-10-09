@@ -1,4 +1,26 @@
-### Features Selection
+## Feature Extraction
+
+Protein sequences were numerically encoded based on physicochemical properties obtained from the [ProtScale (ExPASy) database](https://web.expasy.org/protscale/).
+
+For each amino acid, the following features were extracted:
+
+- **Kyte–Doolittle Hydrophobicity**  
+  Reflects the hydrophobic or hydrophilic nature of amino acids.
+
+- **Polarity (Zimmerman scale)**  
+  Measures polarity, contributing to solubility and hydrogen bonding.
+
+- **Transmembrane Tendency (Zhao & London)**  
+  Estimates the likelihood of residues being part of transmembrane segments.
+
+- **Flexibility (Bhaskaran & Ponnuswamy)**  
+  Represents local conformational flexibility of amino acid residues.
+
+- **Secondary Structure Propensities:**  
+  - **Alpha-helix (Chou & Fasman)**  
+  - **Coil (Deleage & Roux)**  
+
+Each protein sequence was converted into a **feature dataframe**, and sliding windows 5 and 9 were applied to capture **local context** across residues.
 
 | Category | Feature Names |
 |-----------|----------------|
@@ -9,5 +31,4 @@
 | **Flexibility (Bhaskaran & Ponnuswamy)** | `flexibility_BhaskaranPonnuswamy_mean`, `flexibility_BhaskaranPonnuswamy_max` |
 | **Secondary Structure Propensity** | `helix_ChouFasman_mean`, `helix_ChouFasman_max`, `coil_DeleageRoux_mean`, `coil_DeleageRoux_max` |
 
-> All amino acid scale values were obtained from [ProtScale](https://web.expasy.org/protscale/).
 
