@@ -40,10 +40,18 @@ scales = {
         'E': 0.761, 'G': 1.251, 'H': 1.068, 'I': 0.886, 'L': 0.810, 'K': 0.897,
         'M': 0.810, 'F': 0.797, 'P': 1.540, 'S': 1.130, 'T': 1.148, 'W': 0.941,
         'Y': 1.109, 'V': 0.772
-    }
+          
+    },
+    
+    "beta_ChouFasman": {  # Chou & Fasman beta-sheet propensity
+    'A': 0.83, 'R': 0.93, 'N': 0.89, 'D': 0.54, 'C': 1.19, 'Q': 1.10, 'E': 0.37,
+    'G': 0.75, 'H': 0.87, 'I': 1.60, 'L': 1.30, 'K': 0.74, 'M': 1.05, 'F': 1.38,
+    'P': 0.55, 'S': 0.75, 'T': 1.19, 'W': 1.37, 'Y': 1.47, 'V': 1.70
+},
+
 }
 
-window_map = {"kd":5,"polarity_Zimmerman":5,"transmembrane_tendency_ZhaoLondon":9,"flexibility_BhaskaranPonnuswamy":5,"helix_ChouFasman":9,"coil_DeleageRoux":5}
+window_map = {"kd":5,"polarity_Zimmerman":5,"transmembrane_tendency_ZhaoLondon":9,"flexibility_BhaskaranPonnuswamy":5,"helix_ChouFasman":9,"coil_DeleageRoux":5, "beta_ChouFasman":9}
 
 
 def aa_composition(seq, k=22):
