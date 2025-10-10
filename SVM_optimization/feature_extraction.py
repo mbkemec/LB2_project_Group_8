@@ -135,7 +135,35 @@ if __name__ == "__main__":
     feature_cols = [c for c in df_feats.columns if c not in ["Accession", "Fold", "y"]]
     print("Total features:", len(feature_cols))
     df_feats.to_csv("all_features.tsv", sep="\t", index=False)
+    feature_names = np.array(feature_cols)
     print("Unique Accession number:", df_feats["Accession"].nunique())
+    X = df_feats[feature_cols].to_numpy()
+    y = df_feats["y"].to_numpy()
+    folds = df_feats["Fold"].to_numpy()
+    accessions = df_feats["Accession"].to_numpy()
+
+    np.savez("np_all_features.npz",X=X,y=y,folds=folds,feature_names=np.array(feature_cols),accessions=accessions)
+
+    print("X shape:",X.shape)
+    print("y shape:",y.shape)
+    print("fold shape",folds.shape)
+    print("accessions shape",accessions.shape)
+    print("features shape",feature_names)
+    data = np.load("np_all_features.npz",allow_pickle=True)
+    print("Keys:",data.files)
+
+    X = data["X"]
+    y = data["y"]
+    folds=data["folds"]
+    accessions=data["accessions"]
+    feature_names=data["feature_names"]
+
+    print("First 5 X lines:",X[:5])
+    print("First 5 y lines:",y[:5])
+    print("First 5 fold lines:",folds[:5])
+    print("First 5 accessions lines:",accessions[:5])
+    print("First 5 features name lines:",feature_names[:5])
+
 
 
 
