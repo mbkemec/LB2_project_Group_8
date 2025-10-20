@@ -49,3 +49,12 @@ RF provides **Gini-based feature importances**, and SVM hyperparameters (C, γ) 
 | 3 | 0.977 | 0.883 | 0.887 | 0.904 | 0.895 |
 | 4 | 0.971 | 0.852 | 0.866 | 0.871 | 0.868 |
 
+### Cross-Validation Overall Average Performance Metrics (Mean ± SE)
+
+| Metric     | Mean  | ± SE  |
+|-------------|-------|-------|
+| Accuracy    | 0.973 | 0.003 |
+| MCC         | 0.861 | 0.013 |
+| Precision   | 0.883 | 0.013 |
+| Recall      | 0.870 | 0.013 |
+| F1          | 0.876 | 0.012 |
