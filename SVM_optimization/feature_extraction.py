@@ -40,18 +40,17 @@ scales = {
         'E': 0.761, 'G': 1.251, 'H': 1.068, 'I': 0.886, 'L': 0.810, 'K': 0.897,
         'M': 0.810, 'F': 0.797, 'P': 1.540, 'S': 1.130, 'T': 1.148, 'W': 0.941,
         'Y': 1.109, 'V': 0.772
-          
     },
-    
     "beta_ChouFasman": {  # Chou & Fasman beta-sheet propensity
-    'A': 0.83, 'R': 0.93, 'N': 0.89, 'D': 0.54, 'C': 1.19, 'Q': 1.10, 'E': 0.37,
-    'G': 0.75, 'H': 0.87, 'I': 1.60, 'L': 1.30, 'K': 0.74, 'M': 1.05, 'F': 1.38,
-    'P': 0.55, 'S': 0.75, 'T': 1.19, 'W': 1.37, 'Y': 1.47, 'V': 1.70
-},
-
+        'A': 0.83, 'R': 0.93, 'N': 0.89, 'D': 0.54, 'C': 1.19, 'Q': 1.10, 'E': 0.37,
+        'G': 0.75, 'H': 0.87, 'I': 1.60, 'L': 1.30, 'K': 0.74, 'M': 1.05, 'F': 1.38,
+        'P': 0.55, 'S': 0.75, 'T': 1.19, 'W': 1.37, 'Y': 1.47, 'V': 1.70
+    },
 }
 
-window_map = {"kd":5,"polarity_Zimmerman":5,"transmembrane_tendency_ZhaoLondon":9,"flexibility_BhaskaranPonnuswamy":5,"helix_ChouFasman":9,"coil_DeleageRoux":5, "beta_ChouFasman":9}
+window_map = {"kd":5,"polarity_Zimmerman":5,"transmembrane_tendency_ZhaoLondon":9,
+              "flexibility_BhaskaranPonnuswamy":5,"helix_ChouFasman":9,
+              "coil_DeleageRoux":5,"beta_ChouFasman":9}
 
 
 def aa_composition(seq, k=22):
@@ -70,6 +69,7 @@ def scale_features(seq, scale_dict, n=40, window=5):
     scores = scores[d:-d]
     return np.mean(scores), np.max(scores)
 
+
 def read_fasta_sequence(fasta_path):
     seq_lines = []
     with open(fasta_path, "r") as f:
@@ -79,18 +79,17 @@ def read_fasta_sequence(fasta_path):
                 seq_lines.append(line)
     return "".join(seq_lines)
 
+
 def extract_features_from_fasta(accession, fasta_dir):
     fasta_file = fasta_dir + accession + ".fasta"
     seq = read_fasta_sequence(fasta_file)
 
     comp_feats = aa_composition(seq, k=22)
-
     scale_feats = []
     for scale_name, scale_dict in scales.items():
         w = window_map.get(scale_name,5)
         mean_val, max_val = scale_features(seq, scale_dict, n=40, window=w)
         scale_feats.extend([mean_val, max_val])
-
     return comp_feats + scale_feats
 
 
@@ -111,12 +110,41 @@ def build_feature_dataframe(tsv_path, fasta_dir):
         folds.append(row["Fold"])
         accessions.append(acc)
 
-    #Column names
     comp_cols = [f"comp_{aa}" for aa in "ACDEFGHIKLMNPQRSTVWY"]
     scale_cols = []
     for scale_name in scales.keys():
         scale_cols.extend([f"{scale_name}_mean", f"{scale_name}_max"])
+    all_cols = comp_cols + scale_cols
 
+    features_df = pd.DataFrame(all_features, columns=all_cols)
+    features_df["Accession"] = accessions
+    features_df["Fold"] = folds
+    features_df["y"] = y_labels
+    return features_df
+
+
+# benchmark features
+def build_benchmark_feature_dataframe(tsv_path, fasta_dir):
+    df = pd.read_csv(tsv_path, sep="\t")
+    bench_df = df[(df["Train"] == False) & (df["Fold"] == -1)]
+
+    all_features = []
+    y_labels = []
+    folds = []
+    accessions = []
+
+    for _, row in bench_df.iterrows():
+        acc = row["Accession"]
+        feats = extract_features_from_fasta(acc, fasta_dir)
+        all_features.append(feats)
+        y_labels.append(1 if row["Signal_Peptide"] > 0 else 0)
+        folds.append(row["Fold"])
+        accessions.append(acc)
+
+    comp_cols = [f"comp_{aa}" for aa in "ACDEFGHIKLMNPQRSTVWY"]
+    scale_cols = []
+    for scale_name in scales.keys():
+        scale_cols.extend([f"{scale_name}_mean", f"{scale_name}_max"])
     all_cols = comp_cols + scale_cols
 
     features_df = pd.DataFrame(all_features, columns=all_cols)
@@ -142,28 +170,40 @@ if __name__ == "__main__":
     folds = df_feats["Fold"].to_numpy()
     accessions = df_feats["Accession"].to_numpy()
 
-    np.savez("np_all_features.npz",X=X,y=y,folds=folds,feature_names=np.array(feature_cols),accessions=accessions)
+    np.savez("np_all_features.npz", X=X, y=y, folds=folds,
+             feature_names=np.array(feature_cols), accessions=accessions)
 
-    print("X shape:",X.shape)
-    print("y shape:",y.shape)
-    print("fold shape",folds.shape)
-    print("accessions shape",accessions.shape)
-    print("features shape",feature_names)
-    data = np.load("np_all_features.npz",allow_pickle=True)
-    print("Keys:",data.files)
+    print("X shape:", X.shape)
+    print("y shape:", y.shape)
+    print("fold shape", folds.shape)
+    print("accessions shape", accessions.shape)
+    print("features shape", feature_names)
+    data = np.load("np_all_features.npz", allow_pickle=True)
+    print("Keys:", data.files)
 
     X = data["X"]
     y = data["y"]
-    folds=data["folds"]
-    accessions=data["accessions"]
-    feature_names=data["feature_names"]
+    folds = data["folds"]
+    accessions = data["accessions"]
+    feature_names = data["feature_names"]
 
-    print("First 5 X lines:",X[:5])
-    print("First 5 y lines:",y[:5])
-    print("First 5 fold lines:",folds[:5])
-    print("First 5 accessions lines:",accessions[:5])
-    print("First 5 features name lines:",feature_names[:5])
+    print("First 5 X lines:", X[:5])
+    print("First 5 y lines:", y[:5])
+    print("First 5 fold lines:", folds[:5])
+    print("First 5 accessions lines:", accessions[:5])
+    print("First 5 features name lines:", feature_names[:5])
 
+    # benchmark features
+    df_bench_feats = build_benchmark_feature_dataframe(tsv_path, fasta_dir)
+    print(df_bench_feats.head())
+    print("\nBenchmark shape:", df_bench_feats.shape)
+    bench_feature_cols = [c for c in df_bench_feats.columns if c not in ["Accession", "Fold", "y"]]
+    df_bench_feats.to_csv("benchmark_features.tsv", sep="\t", index=False)
+    X_bench = df_bench_feats[bench_feature_cols].to_numpy()
+    y_bench = df_bench_feats["y"].to_numpy()
+    folds_bench = df_bench_feats["Fold"].to_numpy()
+    accessions_bench = df_bench_feats["Accession"].to_numpy()
 
-
-
+    np.savez("np_benchmark_features.npz", X=X_bench, y=y_bench, folds=folds_bench,
+             feature_names=np.array(bench_feature_cols), accessions=accessions_bench)
+    print("Saved benchmark features as np_benchmark_features.npz")

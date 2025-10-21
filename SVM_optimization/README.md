@@ -58,3 +58,28 @@ RF provides **Gini-based feature importances**, and SVM hyperparameters (C, γ) 
 | Precision   | 0.883 | 0.013 |
 | Recall      | 0.870 | 0.013 |
 | F1          | 0.876 | 0.012 |
+
+## Final Model Summary
+
+### Model Description
+The **final SVM model (`final_svm_model.pkl`)** was generated using the best hyperparameters obtained from the **Random Forest (RF) + Support Vector Machine (SVM)** nested cross-validation pipeline.  
+This workflow integrated **RF-based feature ranking** with **SVM (RBF kernel)** optimization to identify the most robust parameter configuration.
+
+### Training Details
+- **Training data:** `np_all_features.npz`
+- **Feature count:** 34
+- **Selected parameters:** `C = 10.0`, `gamma = 0.01`
+- **Model type:** `SVM (RBF kernel)`
+- **Output file:** `final_svm_model.pkl`
+
+### Benchmark Evaluation
+After training on the full dataset, the model was evaluated on the independent benchmark dataset (`np_benchmark_features.npz`).  
+The obtained performance metrics are summarized below:
+
+| **Metric**   | **Score** |
+|---------------|-----------|
+| Accuracy      | 0.9741 |
+| MCC           | 0.8657 |
+| Precision     | 0.8884 |
+| Recall        | 0.8721 |
+| F1-score      | 0.8802 |
