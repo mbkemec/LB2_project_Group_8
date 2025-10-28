@@ -85,6 +85,7 @@ The obtained performance metrics are summarized below:
 | F1-score      | 0.8802 |
 
 **Confusion Matrix**
+
 ![Confusion Matrix](confusion_matrix.png)
 
 **FP count:** 24  **FN count:** 28  **TP count:** 191 
@@ -100,6 +101,7 @@ Average signal peptide (cleavage site) lengths:
 | False Negatives | **25.11** |
 
 ![SP Length Distribution](signal_length_comparison.png)
+
 *Figure 1.* Comparison of signal peptide lengths for **True Positives (TP)** and **False Negatives (FN)**.
 
 ### Feature-Level Analysis
@@ -107,6 +109,7 @@ Average signal peptide (cleavage site) lengths:
 FP sequences show elevated hydrophobicity (Kyte–Doolittle) and higher transmembrane tendency.
 This aligns with the hypothesis that **hydrophobic N-terminal transmembrane helices** often lead to FP predictions.
 ![Feature Comparison](feature_comparison.png)
+
 *Figure 2.* The figure shows the top 10 features that causes FP and box plot (TP & FP) for `kd_max` & `Zhao_London_max`. 
 
 ### Taxonomic Distribution of Errors
