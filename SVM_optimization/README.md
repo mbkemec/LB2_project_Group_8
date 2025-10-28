@@ -88,6 +88,7 @@ The obtained performance metrics are summarized below:
 ![Confusion Matrix](confusion_matrix.png)
 
 **FP count:** 24  **FN count:** 28  **TP count:** 191 
+
 **FPR (For Transmembrane Features):** 12.61%
 
 ### Signal Peptide Length Distribution
@@ -117,8 +118,22 @@ This aligns with the hypothesis that **hydrophobic N-terminal transmembrane heli
 | Fungi | 0.39 | 22.73 |
 | Other | 0.00 | 25.00 |
 
-*FP by Kingdom (%):* Metazoa **79.2%**, Plants **12.5%**, Fungi **8.3%**
-*FN by Kingdom (%):* Metazoa **71.4%**, Fungi **17.9%**, Plants **7.1%**, Other **3.6%**
+**False Positive (FP) Distribution**
+
+| Kingdom | Percentage (%) |
+|:---------|---------------:|
+| Metazoa | 79.2 |
+| Plants | 12.5 |
+| Fungi | 8.3 |
+
+**False Negative (FN) Distribution**
+
+| Kingdom | Percentage (%) |
+|:---------|---------------:|
+| Metazoa | 71.4 |
+| Fungi | 17.9 |
+| Plants | 7.1 |
+| Other | 3.6 |
 
 #### Overall
 - **False Positives** mainly occur in sequences with high transmembrane hydrophobicity.
