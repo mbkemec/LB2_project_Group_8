@@ -112,7 +112,7 @@ This aligns with the hypothesis that **hydrophobic N-terminal transmembrane heli
 
 *Figure 2.* The figure shows the top 10 features that causes FP and box plot (TP & FP) for `kd_max` & `Zhao_London_max`. 
 
-### Taxonomic Distribution of Errors
+### Taxonomic Distribution
 
 | Kingdom | FPR (%) | FNR (%) |
 |:---------|---------:|--------:|
