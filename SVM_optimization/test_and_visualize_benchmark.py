@@ -61,7 +61,7 @@ plt.title("Confusion Matrix (Benchmark set)")
 plt.xlabel("Predicted label")
 plt.ylabel("True label")
 plt.tight_layout()
-plt.savefig("confusion_matrix.png",dpi=300)
+plt.savefig("confusion_matrix.png",dpi=150,bbox_inches="tight")
 plt.show()
 plt.close()
 
@@ -105,7 +105,7 @@ if "Signal_Peptide" in meta.columns:
     ], ignore_index=True)
 
 
-    plt.figure(figsize=(8, 6))
+    plt.figure(figsize=(6, 4))
     sns.histplot(data=len_df,x="Length",hue="Group",stat="probability",common_norm=False,bins=20)
 
     plt.xlim(0, 60)
@@ -114,7 +114,7 @@ if "Signal_Peptide" in meta.columns:
     plt.title("Signal peptide length distribution (TP vs FN)")
     plt.legend(title="Group",labels=["False Negative","True Positive"])
     plt.tight_layout()
-    plt.savefig("signal_length_comparison.png",dpi=300)
+    plt.savefig("signal_length_comparison.png",dpi=150,bbox_inches="tight")
     plt.show()
     plt.close()
 
