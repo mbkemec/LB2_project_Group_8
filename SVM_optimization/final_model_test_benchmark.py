@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 import numpy as np
 import pandas as pd
-from sklearn.metrics import accuracy_score, matthews_corrcoef, precision_score, recall_score, f1_score
+from sklearn.metrics import accuracy_score, matthews_corrcoef, precision_score, recall_score, f1_score, confusion_matrix
 import joblib
 
 
@@ -48,6 +48,11 @@ print(f"MCC       : {mcc:.4f}")
 print(f"Precision : {prec:.4f}")
 print(f"Recall    : {rec:.4f}")
 print(f"F1-score  : {f1:.4f}")
+
+cm = confusion_matrix(y_bench, y_pred)
+tn, fp, fn, tp = cm.ravel()
+print(cm)
+
 
 
 results = {

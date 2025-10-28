@@ -83,3 +83,43 @@ The obtained performance metrics are summarized below:
 | Precision     | 0.8884 |
 | Recall        | 0.8721 |
 | F1-score      | 0.8802 |
+
+**Confusion Matrix**
+![Confusion Matrix](confusion_matrix.png)
+
+**FP count:** 24  **FN count:** 28  **TP count:** 191 
+**FPR (For Transmembrane Features):** 12.61%
+
+### Signal Peptide Length Distribution
+Average signal peptide (cleavage site) lengths:
+
+| Group | Mean length (aa) |
+|:------|-----------------:|
+| True Positives | **22.33** |
+| False Negatives | **25.11** |
+
+![SP Length Distribution](signal_length_comparison.png)
+*Figure 1.* Comparison of signal peptide lengths for **True Positives (TP)** and **False Negatives (FN)**.
+
+### Feature-Level Analysis
+**Top 10 Feature Differences (FP − FN):**
+FP sequences show elevated hydrophobicity (Kyte–Doolittle) and higher transmembrane tendency.
+This aligns with the hypothesis that **hydrophobic N-terminal transmembrane helices** often lead to FP predictions.
+![Feature Comparison](feature_comparison.png)
+*Figure 2.* The figure shows the top 10 features that causes FP and box plot (TP & FP) for `kd_max` & `Zhao_London_max`. 
+
+### Taxonomic Distribution of Errors
+
+| Kingdom | FPR (%) | FNR (%) |
+|:---------|---------:|--------:|
+| Metazoa | 2.03 | 11.83 |
+| Plants | 0.95 | 8.33 |
+| Fungi | 0.39 | 22.73 |
+| Other | 0.00 | 25.00 |
+
+*FP by Kingdom (%):* Metazoa **79.2%**, Plants **12.5%**, Fungi **8.3%**
+*FN by Kingdom (%):* Metazoa **71.4%**, Fungi **17.9%**, Plants **7.1%**, Other **3.6%**
+
+#### Overall
+- **False Positives** mainly occur in sequences with high transmembrane hydrophobicity.
+- **False Negatives** tend to have slightly **longer cleavage regions** than expected.
