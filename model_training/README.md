@@ -47,7 +47,7 @@
 ![Model combined metrics](combined_model_metrics.png)
 
 ## Benchmark Evaluation
-Refitting best model on folds: `[0, 1, 2, 4]` (excluding test fold 3)
+Using best cross validation parameters for training model on folds: `[0, 1, 2, 4]` (excluding test fold 3!!)
 
 | Metric | Value |
 |--------------------------|-----------:|
