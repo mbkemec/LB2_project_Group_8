@@ -45,3 +45,22 @@
 
 ### Combined Performance Metrics Visualization
 ![Model combined metrics](combined_model_metrics.png)
+
+## Benchmark Evaluation
+Refitting best model on folds: `[0, 1, 2, 4]` (excluding test fold 3)
+
+| Metric | Value |
+|--------------------------|-----------:|
+| Threshold used           | 9.687 |
+| True Positives (TP)      | 152 |
+| True Negatives (TN)      | 1744 |
+| False Positives (FP)     | 43 |
+| False Negatives (FN)     | 67 |
+| Accuracy                 | 0.9452 |
+| Recall                   | 0.6941 |
+| Specificity              | 0.9759 |
+| Precision                | 0.7795 |
+| F1 Score                 | 0.7343 |
+| MCC                      | 0.7053 |
+| False Positive Rate (FPR)| 0.0241 |
+
