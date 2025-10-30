@@ -64,5 +64,5 @@ Using best cross validation parameters for training model on folds: `[0, 1, 2, 4
 | MCC                      | 0.7053 |
 | False Positive Rate (FPR)| 0.0241 |
 
-## Sequence Logo of SP Cleavage Site
+## Sequence Logo of SP Cleavage Sites
 ![Benchmarking False Negative SP Cleavage Sites](benchmarking_false_negative_cleavage_sites.png)
