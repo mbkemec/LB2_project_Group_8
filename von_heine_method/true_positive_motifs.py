@@ -1,10 +1,10 @@
 import pandas as pd
 
 
-INPUT_TSV = "benchmark_false_negatives.tsv"
+INPUT_TSV = "benchmark_true_positives.tsv"
 FASTA_FOLDER = "../data_collection/fasta"
 
-OUTPUT_BENCH_TSV = "motifs_false_negatives.tsv"
+OUTPUT_BENCH_TSV = "motifs_true_positives.tsv"
 WINDOW_LEFT = 12
 WINDOW_RIGHT = 3
 

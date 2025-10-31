@@ -135,7 +135,7 @@ def refit_best_and_eval_benchmark(df, best, fasta_dir="../data_collection/fasta/
     print("MCC:", round(mcc, 4))
     print("FPR:", round(fpr, 4))  # NEW
 
-
+    # For False Negatives
     fn_mask = [(yt == 1 and yp == 0) for yt, yp in zip(y_bench, y_pred_bench)]
     fn_rows = benchmark_df[fn_mask].copy()
     fn_rows["score"] = np.array(bench_scores)[fn_mask]
@@ -146,6 +146,19 @@ def refit_best_and_eval_benchmark(df, best, fasta_dir="../data_collection/fasta/
     fn_rows.to_csv(out_file, sep="\t", index=False)
     print(f"\nSaved false negatives to {out_file} ({len(fn_rows)} sequences)\n")
     print("/"*50 + "\n")
+
+    # For True Positives
+    tp_mask = [(yt == 1 and yp == 1) for yt, yp in zip(y_bench, y_pred_bench)]
+    tp_rows = benchmark_df[tp_mask].copy()
+    tp_rows["score"] = np.array(bench_scores)[tp_mask]
+    tp_rows["y_true"] = np.array(y_bench)[tp_mask]
+    tp_rows["y_pred"] = np.array(y_pred_bench)[tp_mask]
+
+    out_file_tp = "benchmark_true_positives.tsv"
+    tp_rows.to_csv(out_file_tp, sep="\t", index=False)
+    print(f"\nSaved true positives to {out_file_tp} ({len(tp_rows)} sequences)\n")
+    print("/"*50 + "\n")
+
 
 
 def cross_validation(df, fasta_dir="../data_collection/fasta/"):
