@@ -69,3 +69,5 @@ Using best cross validation parameters for training model on folds: `[0, 1, 2, 4
 
 ## Sequence Logo of SP Cleavage Sites for False Negatives & True Positives
 ![Benchmarking False Negative SP Cleavage Sites](benchmarking_false_negative_cleavage_sites.png)
+
+![Benchmarking True Positive SP Cleavage Sites](benchmarking_true_positive_cleavage_sites.png)
