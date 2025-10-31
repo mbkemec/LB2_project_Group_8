@@ -56,6 +56,9 @@ Using best cross validation parameters for training model on folds: `[0, 1, 2, 4
 | True Negatives (TN)      | 1744 |
 | False Positives (FP)     | 43 |
 | False Negatives (FN)     | 67 |
+
+| Metric | Value |
+|--------------------------|-------:|
 | Accuracy                 | 0.9452 |
 | Recall                   | 0.6941 |
 | Specificity              | 0.9759 |
