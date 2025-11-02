@@ -105,12 +105,19 @@ Average signal peptide (cleavage site) lengths:
 *Figure 1.* Comparison of signal peptide lengths for **True Positives (TP)** and **False Negatives (FN)**.
 
 ### Feature-Level Analysis
+
 **Top 10 Feature Differences (FP − FN):**
-FP sequences show elevated hydrophobicity (Kyte–Doolittle) and higher transmembrane tendency.
-This aligns with the hypothesis that **hydrophobic N-terminal transmembrane helices** often lead to FP predictions.
+
+In the TP–FN comparison, the largest feature differences were observed for `Kyte–Doolittle hydrophobicity (kd_max)` and `Transmembrane tendency (Zhao–London max)`.
+This indicates that correctly predicted signal peptides (TPs) generally exhibit stronger hydrophobic cores and higher transmembrane-like character than the false negatives (FNs).
+Conversely, FNs often correspond to genuine SPs with weaker or less pronounced hydrophobic regions, leading the model to miss them during prediction.
+
 ![Feature Comparison](feature_comparison.png)
 
-*Figure 2.* The figure shows the top 10 features that causes FP and box plot (TP & FP) for `kd_max` & `Zhao_London_max`. 
+*Figure 2.* The figure shows the top 10 feature differences between TP and FN, and box plot (TP & FN) for `kd_max` & `Zhao_London_max`. 
+
+Box plots for `kd_max` and `transmembrane_tendency_ZhaoLondon_max` show that True Positives (TPs) generally exhibit higher values than False Negatives (FNs).
+This trend confirms that the model relies strongly on hydrophobic and transmembrane-like features for signal peptide recognition, while genuine SPs with weaker hydrophobic cores tend to be misclassified as non-SPs.
 
 ### Taxonomic Distribution
 

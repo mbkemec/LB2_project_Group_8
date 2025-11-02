@@ -134,19 +134,19 @@ print("\nIt means that negative but model predict positive!!")
 fig, axes = plt.subplots(1, 3, figsize=(18, 5))
 plt.style.use("seaborn-v0_8-darkgrid")
 
-diff_fp_fn = (group_means_df["FP"] - group_means_df["FN"]).sort_values(ascending=False)
-top_diff = diff_fp_fn.head(10)
+diff_tp_fn = (group_means_df["TP"] - group_means_df["FN"]).sort_values(ascending=False)
+top_diff = diff_tp_fn.head(10)
 top_diff.plot(kind="barh", ax=axes[0], color="#56B4E9")
-axes[0].set_title("Top 10 Feature Differences (FP − FN)")
+axes[0].set_title("Top 10 Feature Differences (TP − FN)")
 axes[0].set_xlabel("Mean Difference")
 axes[0].invert_yaxis() # That is for the ranking of the features
 
 if "kd_max" in feat_df.columns:
     kd_tp = feat_df.iloc[tp_idx]["kd_max"]
-    kd_fp = feat_df.iloc[fp_idx]["kd_max"]
+    kd_fn = feat_df.iloc[fn_idx]["kd_max"]
     kd_box = pd.DataFrame({
-        "Value": np.concatenate([kd_tp, kd_fp]),
-        "Group": ["True Positive"] * len(kd_tp) + ["False Positive"] * len(kd_fp)
+        "Value": np.concatenate([kd_tp, kd_fn]),
+        "Group": ["True Positive"] * len(kd_tp) + ["False Negative"] * len(kd_fn)
     })
     sns.boxplot(data=kd_box, x="Group", y="Value", palette="Set2", ax=axes[1])
     sns.stripplot(data=kd_box, x="Group", y="Value", color="black", alpha=0.4, jitter=True, ax=axes[1])
@@ -156,10 +156,10 @@ if "kd_max" in feat_df.columns:
 
 if "transmembrane_tendency_ZhaoLondon_max" in feat_df.columns:
     tm_tp = feat_df.iloc[tp_idx]["transmembrane_tendency_ZhaoLondon_max"]
-    tm_fp = feat_df.iloc[fp_idx]["transmembrane_tendency_ZhaoLondon_max"]
+    tm_fn = feat_df.iloc[fn_idx]["transmembrane_tendency_ZhaoLondon_max"]
     tm_box = pd.DataFrame({
-        "Value": np.concatenate([tm_tp, tm_fp]),
-        "Group": ["True Positive"] * len(tm_tp) + ["False Positive"] * len(tm_fp)
+        "Value": np.concatenate([tm_tp, tm_fn]),
+        "Group": ["True Positive"] * len(tm_tp) + ["False Negative"] * len(tm_fn)
     })
     sns.boxplot(data=tm_box, x="Group", y="Value", palette="Set2", ax=axes[2])
     sns.stripplot(data=tm_box, x="Group", y="Value", color="black", alpha=0.4, jitter=True, ax=axes[2])
