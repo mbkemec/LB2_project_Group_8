@@ -106,7 +106,7 @@ Average signal peptide (cleavage site) lengths:
 
 ### Feature-Level Analysis
 
-**Top 10 Feature Differences (FP − FN):**
+**Top 10 Feature Differences (TP − FN):**
 
 In the TP–FN comparison, the largest feature differences were observed for `Kyte–Doolittle hydrophobicity (kd_max)` and `Transmembrane tendency (Zhao–London max)`.
 This indicates that correctly predicted signal peptides (TPs) generally exhibit stronger hydrophobic cores and higher transmembrane-like character than the false negatives (FNs).
