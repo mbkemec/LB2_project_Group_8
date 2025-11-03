@@ -119,6 +119,13 @@ Conversely, FNs often correspond to genuine SPs with weaker or less pronounced h
 Box plots for `kd_max` and `transmembrane_tendency_ZhaoLondon_max` show that True Positives (TPs) generally exhibit higher values than False Negatives (FNs).
 This trend confirms that the model relies strongly on hydrophobic and transmembrane-like features for signal peptide recognition, while genuine SPs with weaker hydrophobic cores tend to be misclassified as non-SPs.
 
+### Amino Acid Composition Analysis (TP-FN)
+
+![AA comparison](aa_composition_tp_fn.png)
+**Figure 3.** Amino acid composition comparison between True Positives (TP) and False Negatives (FN).
+
+TP sequences show higher proportions of hydrophobic residues (e.g., Leucine, Alanine), while FN sequences contain relatively more polar residues (Threonine). This suggests the model performs better at recognizing strongly hydrophobic signal peptides, but tends to miss those with less hydrophobic N-terminal regions.
+
 ### Taxonomic Distribution
 
 | Kingdom | FPR (%) | FNR (%) |

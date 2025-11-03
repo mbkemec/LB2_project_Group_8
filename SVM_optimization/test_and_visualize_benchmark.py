@@ -172,6 +172,37 @@ plt.savefig("feature_comparison.png",dpi=300)
 plt.show()
 plt.close(fig)
 
+#Amino Acid Compositions (TP-FN)
+
+aa_cols = [col for col in feat_df.columns if col.startswith("comp_")]
+
+tp_comp = feat_df.iloc[tp_idx][aa_cols].mean()
+fn_comp = feat_df.iloc[fn_idx][aa_cols].mean()
+# create df for visualize these
+aa_comp_df = pd.DataFrame({
+    "AminoAcid": [c.replace("comp_", "") for c in aa_cols],
+    "TP": tp_comp.values,
+    "FN": fn_comp.values
+})
+
+plt.figure(figsize=(10, 6))
+x = np.arange(len(aa_comp_df))
+
+plt.bar(x, aa_comp_df["TP"], label="True Positive (TP)", color="#1f77b4", alpha=0.6,linewidth=0.5)
+plt.bar(x, aa_comp_df["FN"], label="False Negative (FN)", color="#ff7f0e", alpha=0.6,linewidth=0.5)
+
+plt.xticks(x, aa_comp_df["AminoAcid"])
+plt.xlabel("Amino Acid")
+plt.ylabel("Average Composition Value")
+plt.title("Amino Acid Compositions (TP vs FN)")
+plt.legend()
+plt.tight_layout()
+plt.savefig("aa_composition_tp_fn.png", dpi=150, bbox_inches="tight")
+plt.show()
+plt.close()
+
+
+
 print("\nFP/FN Distribution by Kingdom")
 
 print("FP by Kingdom (%):")
