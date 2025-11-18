@@ -16,7 +16,7 @@ The project consists of **five major stages**:
 
 Each stage is documented inside its respective directory, while this README provides a high-level overview.
 
-## Summary of Data Collection Workflow
+## Summary of Data Collection Step
 
 The **data_collection/** directory contains all scripts used for building the curated dataset used throughout the project.
 
@@ -86,4 +86,47 @@ Now we have 5 different cross validation fold.
 We combined all folds for training data and also benchmark data into one single file which contains all information together (for future analysis). But this time we have more columns for `Signal_Peptide`, `Transmembrane_Helix`,`Train`,`Fold`
 With using these columns, we can create and test model. In addition, whole `.fasta` files are located into `/fasta` folder. The model go there and read the file.
 
+
+## Data Visualization Overview
+
+The `data_visualization/` directory contains all scripts used to analyze and visualize the biological and statistical properties of the dataset.
+These visualizations help verify data quality, differences between positive and negative data and support biological interpretation before model training.
+
+Note: We did all the same analysis both train set and benchmark set!
+
+### 1. Shuffle Combined Dataset
+First of all before analysis, the merged dataset (`combined_dataset.tsv`) is shuffled to avoid fold based ordering of samples.
+
+- **Script:** `file_shuffle.py`
+- **Output:** `combined_dataset_final.tsv`
+This file is used as input for all further analyses.
+
+
+#### 2. Protein Length Distribution
+Visualizes the length distribution of positive vs. negative sequences.
+
+- **Script:** `proteinlenght.py`
+
+#### 3. Signal Peptide Length Distribution
+Compares the cleavage site lengths of signal peptides between training and benchmark sets, and this provides insights into the typical size range of signal peptides.
+
+- **Script:** `signal_peptide_graph.py`
+
+#### 4. Comparative Amino Acid Composition
+We compare the amino acid composition of signal peptides (SPs) against the SwissProt background distribution. This highlights which amino acids are enriched or depleted in SPs relative to general proteins.
+
+- **Script:** `comparison_aa.py`
+
+#### 5. Taxonomic Classification
+Analyzes the kingdom-level and species-level distribution of proteins. Useful to detect groups with high False Positive and False Negative risk.
+
+- **Script:** `taxonomic_classification.py`
+
+#### 6. Sequence Logos of SP Cleavage Sites
+Extracts motifs around cleavage sites using a window of **[-13, +2]** and generates sequence logos (via WebLogo).
+
+- **Script:**
+  - `motif_logo.py` -> motif extraction from fasta files. 
+After using this script, we got `.tsv` files which are contain motifs for train and benchmark data. Then we use weblogo service to create sequence logo of SP cleavage sites.
+It is useful for showing conserved sequence patterns at cleavage sites. 
 
