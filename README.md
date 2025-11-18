@@ -11,7 +11,7 @@ The project consists of **five major stages**:
 1. **Data Collection** — UniProt retrieval, filtering, redundancy removal (MMseq2), data splitting
 2. **Data Visualization** — Exploratory dataset analysis and biological insight
 3. **Von Heime Method** - Firstly Von Heijne method is applied to predict signal peptides.
-4. **Feature Extraction, Model Training & Optimization** — Numerical representation of sequences, cross-validation, feature selection, SVM training
+4. **Feature Extraction, Model Training (SVM) & Optimization** — Numerical representation of sequences, cross-validation, feature selection, SVM training
 5. **Benchmark Evaluation & Error Analysis** — Independent testing + biological interpretation
 
 Each stage is documented inside its respective directory, while this README provides a high-level overview.
@@ -81,7 +81,9 @@ Class-balanced splitting performed by:
 
 - `split_cross_validation.py`
 Now we have 5 different cross validation fold.
-Then we combined all folds for training data and also benchmark data into one single file which contains all information together (for future analysis) with `merge_data.py` script. But this time we have more columns for `Signal_Peptide`, `Transmembrane_Helix`,`Train`,`Fold`
+
+- `merge_data.py`
+We combined all folds for training data and also benchmark data into one single file which contains all information together (for future analysis). But this time we have more columns for `Signal_Peptide`, `Transmembrane_Helix`,`Train`,`Fold`
 With using these columns, we can create and test model. In addition, whole `.fasta` files are located into `/fasta` folder. The model go there and read the file.
 
 
