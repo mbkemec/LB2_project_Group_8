@@ -65,6 +65,9 @@ plt.savefig("confusion_matrix.png",dpi=150,bbox_inches="tight")
 plt.show()
 plt.close()
 
+fpr = fp / (fp + tn) if (fp + tn) > 0 else float("nan")
+print("FPR (overall):", fpr)
+
 fp_idx = np.where((y_bench == 0) & (y_pred == 1))[0]
 fn_idx = np.where((y_bench == 1) & (y_pred == 0))[0]
 tp_idx = np.where((y_bench == 1) & (y_pred == 1))[0]

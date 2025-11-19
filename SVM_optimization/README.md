@@ -92,6 +92,17 @@ The obtained performance metrics are summarized below:
 
 **FPR (For Transmembrane Features):** 12.61%
 
+#### False Positive Rate (SVM Benchmark)
+
+| Metric | Value |
+|--------|--------|
+| True Positives (TP) | 191 |
+| True Negatives (TN) | 1763 |
+| False Positives (FP) | 24 |
+| False Negatives (FN) | 28 |
+| **FPR (Overall)** | **0.0134** |
+| **FPR (Transmembrane)** | **0.1261**|
+
 ### Signal Peptide Length Distribution
 Average signal peptide (cleavage site) lengths:
 
