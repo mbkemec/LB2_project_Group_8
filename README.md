@@ -305,6 +305,14 @@ These scripts:
 - **FN = 28**
 - **TN = 1763**
 
+### False Positive Rate (FPR) Comparison Between Models
+
+| Model        | FPR (Overall) | FPR (Transmembrane) |
+|--------------|----------------|----------------------|
+| **von Heijne** | **2.41%**       | **13.45%**           |
+| **SVM**        | **1.34%**       | **~12.6%**               |
+
+
 ### 5. Error Analysis: TP/FN, Length, Feature Patterns, and Composition
 
 **Script:**
