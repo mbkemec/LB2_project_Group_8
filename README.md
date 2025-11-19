@@ -130,3 +130,83 @@ Extracts motifs around cleavage sites using a window of **[-13, +2]** and genera
 After using this script, we got `.tsv` files which are contain motifs for train and benchmark data. Then we use weblogo service to create sequence logo of SP cleavage sites.
 It is useful for showing conserved sequence patterns at cleavage sites. 
 
+## von Heijne Model – PSWM-Based Signal Peptide Prediction
+
+This folder contains a full implementation of a Position-Specific Weight Matrix (PSWM) model inspired by the classical von Heijne approach for signal peptide (SP) cleavage site recognition.
+The workflow consists of:
+1. Motif extraction for PSWM construction
+2. PSWM model training (log-odds scoring)
+3. Sliding-window scoring of full protein sequences
+4. 5-fold cross-validation
+5. Benchmark evaluation using the best model
+6. Extraction of TP/FN motifs for sequence logo generation
+
+#### 1. Motif Extraction for Model Training
+Training motifs are extracted directly inside `model_creation.py` using `extract_motifs_from_rows()` function. 
+For each positive sequence (Signal_Peptide > 0):
+The sequence is obtained from `../data_collection/fasta/Accession.fasta`
+
+A fixed [-13, +2] window around the annotated cleavage site is extracted (total motif length = 15 aa)
+
+These motifs form the input for PSWM construction.
+
+Note: This motif extraction is internal and used exclusively for model training.
+It is distinct from the benchmark TP/FN motif extraction scripts, which are used only for visualization.
+
+#### 2. PSWM Construction
+A Position-Specific Weight Matrix is created using `build_pswm(motifs)` function.
+
+Steps:
+- Count matrix generated for all 20 amino acids (with pseudocount = 1)
+- Convert counts into probabilities
+- Convert probabilities into log2-odds weights using SwissProt background frequencies
+
+Result:
+
+A 20 × 15 matrix where each entry reflects how enriched a residue is at a specific motif position relative to background.
+
+#### 3. Scoring Protein Sequences Using Sliding Window
+Each full protein sequence is scanned using a sliding 15-aa window with `best_window_score(seq, W, window=15, limit=70)` function.
+
+- Score = sum of PSWM weights for each residue in the window
+- The highest-scoring window is taken as the sequence score
+- Only positions up to 70 aa are scanned (typical SP range)
+
+This produces one score per protein -> used for classification.
+
+
+#### 4. Cross-Validation
+Cross-validation are made with `cross_validation(df)` function inside `model_creation.py`.
+
+For each fold:
+- Train folds: used to extract motifs + build PSWM
+- Validation fold: threshold optimization
+- Test fold: final evaluation with that threshold
+
+Reported metrics per fold:
+Accuracy
+Recall (Sensitivity)
+Precision
+F1-score
+MCC
+Confusion matrix
+
+At the end, mean ± standard error (SE) across folds is printed. (The details at `von_heine_method` directory.
+
+#### 5. Benchmark Evaluation - Combined Metrics Visualization
+The script generates a three-panel figure:
+
+- ROC curve
+- Precision–Recall curve
+- Average PSWM heatmap across folds
+
+The best CV configuration (highest MCC) is refit on:
+- training folds + validation fold
+- !(test fold excluded)
+
+Benchmark sequences are then scored, threshold applied, and metrics computed. Additionally, we create `benchmark_false_negatives.tsv` and `benchmark_true_positives.tsv` to use for sequence logo creation.
+
+#### 6. Motif Logo for TP and FN
+
+The following scripts extract motifs from benchmark TP and FN sequences: `false_negative_motifs.py` and `true_positive_motifs.py`. Then we use weblogo service to create sequence logo.
+
