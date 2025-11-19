@@ -134,6 +134,23 @@ def refit_best_and_eval_benchmark(df, best, fasta_dir="../data_collection/fasta/
     print("F1 Score:", round(f1, 4))
     print("MCC:", round(mcc, 4))
     print("FPR:", round(fpr, 4))  # NEW
+    # Transmembrane FPR
+    if "Transmembrane_Helix" in benchmark_df.columns:
+        tm_mask = (benchmark_df["Transmembrane_Helix"] == True).values
+        non_tm_mask = (benchmark_df["Transmembrane_Helix"] == False).values
+
+        y_bench_arr = np.array(y_bench)
+        y_pred_arr = np.array(y_pred_bench)
+
+        neg_mask = (y_bench_arr == 0)       
+        fp_mask  = (y_bench_arr == 0) & (y_pred_arr == 1) 
+
+        fpr_tm = fp_mask[tm_mask].sum() / neg_mask[tm_mask].sum() if neg_mask[tm_mask].sum() > 0 else float("nan")
+        fpr_non_tm = fp_mask[non_tm_mask].sum() / neg_mask[non_tm_mask].sum() if neg_mask[non_tm_mask].sum() > 0 else float("nan")
+
+        print(f"\nTransmembrane-specific FPRs:")
+        print(f"  FPR (Transmembrane)     = {fpr_tm*100:.2f}%")
+        print(f"  FPR (Non-Transmembrane) = {fpr_non_tm*100:.2f}%\n")
 
     # For False Negatives
     fn_mask = [(yt == 1 and yp == 0) for yt, yp in zip(y_bench, y_pred_bench)]
@@ -159,8 +176,7 @@ def refit_best_and_eval_benchmark(df, best, fasta_dir="../data_collection/fasta/
     print(f"\nSaved true positives to {out_file_tp} ({len(tp_rows)} sequences)\n")
     print("/"*50 + "\n")
 
-
-
+	
 def cross_validation(df, fasta_dir="../data_collection/fasta/"):
     folds = sorted(df[df["Train"] == True]["Fold"].unique())
     print("Total fold:", len(folds))
